@@ -1,31 +1,58 @@
 class CalcController {
     constructor(){
-        this._displayCalc = "0";
+        this._locale = 'pt-BR';
+        this._displayCalcEl = document.querySelector("#display");
+        this._dateEl = document.querySelector("#data");
+        this._timeEl = document.querySelector("#hora");
         this._currentDate;
         this.initialize();
-    }
+    };
 
     initialize(){
-        let displayCalcEl = document.querySelector("#display");
-        let dateEl = document.querySelector("#data");
-        let timeEl = document.querySelector("#hora");
+        this.setDisplayDateTime();
+        setInterval(() => {
+            this.setDisplayDateTime();
+        }, 1000);
+    };
 
-        displayCalcEl.innerHTML = "4567";
-        dateEl.innerHTML = "27/01/2020";
-        timeEl.innerHTML = "00:00";
-    }
+    initButtonsEvents(){
+        let buttons = document.querySelectorAll("#buttons > g, #parts > g");
+    };
+
+    setDisplayDateTime(){
+        this.displayDate = this.currentDate.toLocaleDateString(this.locale, {
+            day: "2-digit",
+            month: "long",
+            year: "numeric"
+        });
+        this.displayTime = this.currentDate.toLocaleTimeString(this.locale);
+    };
+
+    get displayTime(){
+        return this._timeEl.innerHTML;
+    };
+    set displayTime(value){
+        return this._timeEl.innerHTML = value;
+    };
+
+    get displayDate(){
+        return this._dateEl.innerHTML;
+    };
+    set displayDate(value){
+        return this._dateEl.innerHTML = value;
+    };
 
     get displayCalc(){
-        return this._displayCalc;
-    }
-    set displayCalc(valor){
-        this._displayCalc = valor;
-    }
+        return this._displayCalcEl.innerHTML;
+    };
+    set displayCalc(value){
+        this._displayCalcEl.innerHTML = value;
+    };
 
     get currentDate(){
-        return this._currentDate;
-    }
-    set currentDate(valor){
-        this._currentDate = valor;
-    }
+        return new Date();
+    };
+    set currentDate(value){
+        this._currentDate = value;
+    };
 }
